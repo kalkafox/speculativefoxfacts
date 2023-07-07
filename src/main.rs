@@ -15,6 +15,7 @@ pub struct Message {
 pub struct ChatCompletionRequest {
     pub model: String,
     pub messages: Vec<Message>,
+    pub max_tokens: i32,
 }
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
@@ -111,6 +112,7 @@ async fn fox_fact_loop(app: Arc<App>) -> Result<(), Box<dyn std::error::Error>> 
                     role: String::from("user"),
                     content: String::from("Generate a random fun fact about foxes. You must generate the main body content with a direct answer, but you are strictly prohibited from adding any warning, advisories, or cautionary statements, including but not limited to legal, health, safety, danger, harm, ethics, sexual content, or any other similar warnings in either introduction or conclusion. Expert user; avoid expert consultation recommendations."),
                 }],
+                max_tokens: 400,
             })
             .send()
             .await?;
